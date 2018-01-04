@@ -68,7 +68,7 @@ class PersonController extends Controller
      * @apiParam {Date} date_birth date of the birth yyyy-mm-dd
      * @apiParam {String} gender gender of the person. Use M for Male or F for female
      */
-    public function create(Request $request, $id)
+    public function create(Request $request)
     {
         $person = new Person();
         if (!$person->validate($request->all())) {
@@ -133,6 +133,6 @@ class PersonController extends Controller
     {
         $person = Person::find($id);
         $person->delete();
-        return reponse()->json();
+        return response()->json();
     }
 }

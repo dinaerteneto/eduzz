@@ -1,0 +1,182 @@
+[
+  {
+    "type": "post",
+    "url": "/person/create",
+    "title": "create a specific person",
+    "version": "1.0.0",
+    "name": "create",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "date_birth",
+            "description": "<p>date of the birth yyyy-mm-dd</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gender",
+            "description": "<p>gender of the person. Use M for Male or F for female</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  },
+  {
+    "type": "delete",
+    "url": "/person/:id",
+    "title": "delete a specific person",
+    "version": "1.0.0",
+    "name": "delete",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the person</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  },
+  {
+    "type": "get",
+    "url": "/person/get-all",
+    "title": "get all users",
+    "version": "1.0.0",
+    "name": "get_all",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": true,
+            "field": "rows",
+            "description": "<p>number of records to page</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": true,
+            "field": "page",
+            "description": "<p>number of current page</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  },
+  {
+    "type": "get",
+    "url": "/person/:id",
+    "title": "get a specific person",
+    "version": "1.0.0",
+    "name": "read",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the person</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  },
+  {
+    "type": "get",
+    "url": "/person/search",
+    "title": "Search people by name",
+    "version": "1.0.0",
+    "name": "search",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": true,
+            "field": "rows",
+            "description": "<p>number of records to page</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": true,
+            "field": "page",
+            "description": "<p>number of current page</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>name or last name of user for search</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  },
+  {
+    "type": "put",
+    "url": "/person/:id",
+    "title": "update a specific person",
+    "version": "1.0.0",
+    "name": "update",
+    "group": "person",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id of the person</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "date_birth",
+            "description": "<p>date of the birth yyyy-mm-dd</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gender",
+            "description": "<p>gender of the person. Use M for Male or F for female</p>"
+          }
+        ]
+      }
+    },
+    "filename": "app/Http/Controllers/PersonController.php",
+    "groupTitle": "person"
+  }
+]

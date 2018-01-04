@@ -11,6 +11,18 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api/v1'], function () use ($router) {
+    // person controller
+    $router->group(['prefix' => 'person'], function () use ($router) {
+
+        // search
+        $router->get('/get-all', 'PersonController@getAll');
+        $router->get('/search', 'PersonController@search');
+
+        // crud
+        $router->post('/create', 'PersonController@create');
+        $router->get('/{id}', 'PersonController@read');
+        $router->put('/{id}', 'PersonController@update');
+        $router->delete('/{id}', 'PersonController@delete');
+    });
 });

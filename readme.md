@@ -7,7 +7,7 @@
     - Utilize o banco de dados MySQL para criar sua aplicação.
 
 ## Instalacao
-  - Após clonar o projeto
+  - Após clonar o projeto, rode os comandos abaixo
     - composer install
-    - php artisan migrate
-    - php artisan db:seed
+    - php artisan migrate (para criar as tabelas)
+    - php artisan db:seed (para popular as tabelas)

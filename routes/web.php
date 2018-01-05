@@ -11,6 +11,10 @@
 |
 */
 
+$router->get('/', 'Controller@index');
+
+
+// routes for api
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     // person controller
     $router->group(['prefix' => 'person'], function () use ($router) {

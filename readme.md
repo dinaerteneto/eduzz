@@ -26,5 +26,5 @@
     - criar 3 hosts
       - eduzz.api -> apontando para ./public 
       - eduzz.doc -> apontando para ./public/apidoc
-      - eduzz.dash -> apontando para ./frontend
+      - eduzz.dash -> apontando para ./public
   

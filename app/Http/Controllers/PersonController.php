@@ -19,15 +19,17 @@ class PersonController extends Controller
      * @apiParam {Integer} [rows] number of records to page
      * @apiParam {Integer} [page] number of current page
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
-        Paginator::currentPageResolver(function () use ($request) {
-            return $request->page;
+        $page = null !== ($request->get('page')) ? $request->page : 0;
+        $rows = null !== ($request->get('rows')) ? $request->rows : 15;
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
         });
         $people = Person::with(['contacts' => function ($model) {
             return $model->with('contactType');
         }]);
-        $paginate = $people->paginate($request->rows);
+        $paginate = $people->paginate($rows);
         return response()->json($paginate);
     }
 

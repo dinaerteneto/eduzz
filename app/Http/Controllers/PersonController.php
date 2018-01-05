@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
 use App\Entities\Person;
+use App\Repositories\PersonRepository;
 
 class PersonController extends Controller
 {
@@ -67,15 +68,23 @@ class PersonController extends Controller
      * @paiParam {String} last_name last name of the person
      * @apiParam {Date} date_birth date of the birth yyyy-mm-dd
      * @apiParam {String} gender gender of the person. Use M for Male or F for female
+     *
+	 * @apiParam {Array[]} contact
+	 * @apiParam {Integer=1-E-mail,2-Cellphone,3-Comercialphone,4-Homephone,5-Scrapsphone} contact.contact_type_id
+	 * @apiParam {String} contact.value
      */
     public function create(Request $request)
     {
         $person = new Person();
-        if (!$person->validate($request->all())) {
-            abort(500, $person->errors());
-        }
         $person->fill($request->all());
-        $person->save();
+        $repository = new PersonRepository($person);
+        $repository->save();
+
+        // add contacts
+        if (null !== $request->get('contact')) {
+            $repository->addContact($request->get('contact'));
+        }
+
         return response()->json($person);
     }
 
@@ -89,10 +98,9 @@ class PersonController extends Controller
      */
     public function read(Request $request, $id)
     {
-        $person = Person::where(['id' => $id])->with(['contacts' => function ($model) {
-            return $model->with('contactType');
-        }])->get();
-        return response()->json($person);
+        $person = new Person();
+        $repository = new PersonRepository($person);
+        return response()->json($repository->read($id));
     }
 
     /**
@@ -107,16 +115,20 @@ class PersonController extends Controller
      * @paiParam {String} last_name last name of the person
      * @apiParam {Date} date_birth date of the birth yyyy-mm-dd
      * @apiParam {String} gender gender of the person. Use M for Male or F for female
+     *
+	 * @apiParam {Array[]} contact
+	 * @apiParam {Integer=1-E-mail,2-Cellphone,3-Comercialphone,4-Homephone,5-Scrapsphone} contact.contact_type_id
+	 * @apiParam {String} contact.value
      */
     public function update(Request $request, $id)
     {
         $person = Person::find($id);
-        if ($person) {
-            if (!$person->validate($request->all())) {
-                abort(500, $person->errors());
-            }
-            $person->fill($request->all());
-            $person->save();
+        $repository = new PersonRepository($person);
+        $repository->save();
+
+        // add contacts
+        if (null !== $request->get('contact')) {
+            $repository->addContact($request->get('contact'));
         }
         return response()->json($person);
     }
@@ -133,6 +145,6 @@ class PersonController extends Controller
     {
         $person = Person::find($id);
         $person->delete();
-        return response()->json();
+        return response()->json(true);
     }
 }

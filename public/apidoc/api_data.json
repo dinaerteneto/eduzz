@@ -22,6 +22,34 @@
             "optional": false,
             "field": "gender",
             "description": "<p>gender of the person. Use M for Male or F for female</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array[]",
+            "optional": false,
+            "field": "contact",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "allowedValues": [
+              "1-E-mail",
+              "2-Cellphone",
+              "3-Comercialphone",
+              "4-Homephone",
+              "5-Scrapsphone"
+            ],
+            "optional": false,
+            "field": "contact.contact_type_id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "contact.value",
+            "description": ""
           }
         ]
       }
@@ -172,6 +200,34 @@
             "optional": false,
             "field": "gender",
             "description": "<p>gender of the person. Use M for Male or F for female</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array[]",
+            "optional": false,
+            "field": "contact",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "allowedValues": [
+              "1-E-mail",
+              "2-Cellphone",
+              "3-Comercialphone",
+              "4-Homephone",
+              "5-Scrapsphone"
+            ],
+            "optional": false,
+            "field": "contact.contact_type_id",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "contact.value",
+            "description": ""
           }
         ]
       }

@@ -6,8 +6,25 @@
     - No front deve ser utilizado: Html, Css e Javascript (utilize a biblioteca e layout de sua preferência). 
     - Utilize o banco de dados MySQL para criar sua aplicação.
 
+## Tecnológias
+    - Backend
+      - PHP
+      - Lumen
+      - Mysql
+    - Frontend
+      - Jquery
+      - Ajax
+      - Axios
+    - Ide
+      - VsCode
+
 ## Instalacao
-  - Após clonar o projeto
+  - Após clonar o projeto, rode os comandos abaixo
     - composer install
-    - php artisan migrate
-    - php artisan db:seed
+    - php artisan migrate (para criar as tabelas)
+    - php artisan db:seed (para popular as tabelas)
+    - criar 3 hosts
+      - eduzz.api -> apontando para ./public 
+      - eduzz.doc -> apontando para ./public/apidoc
+      - eduzz.dash -> apontando para ./public
+  

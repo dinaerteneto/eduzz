@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
+import $ from 'jquery';
+var jQuery = require('jquery');
+window.$ = window.jQuery = jQuery;
+
+import swal from 'sweetalert';
+
+
 import App from './App.vue'
 
 Vue.use(VueResource);

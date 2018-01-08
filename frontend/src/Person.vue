@@ -1,88 +1,112 @@
 <template>
   <section>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Candidato</h4>
-        </div>
-        <div class="modal-body">
-          <form class="clearfix">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Candidato</h4>
+          </div>
+          <div class="modal-body">
+            <form class="clearfix">
 
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Nome" v-model="record.name">
+              <div class="row">
+                <div class="form-group col-sm-6">
+                  <label class="">Nome</label>
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Nome" v-model="record.name">
+                </div>
+
+                <div class="form-group col-sm-6">
+                  <label class="">Sobrenome</label>
+                  <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Sobrenome" v-model="record.last_name">
+                </div>
               </div>
 
-              <div class="form-group col-sm-6">
-                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Sobrenome" v-model="record.last_name">
-              </div>
-            </div>
+              <div class="row">
+                <div class="form-group col-sm-6">
+                  <label>Data de nascimento</label>
+                  <input type="text" name="date-birth" id="date-birth" class="form-control mask-date" placeholder="Data de nascimento" v-model="record.date_birth" >
+                </div>
 
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <input type="text" name="date-birth" id="date-birth" class="form-control mask-date" placeholder="Data de nascimento" v-model="record.date_birth" >
-              </div>
-
-              <div class="form-group col-sm-6">
-                <select name="gender" class="form-control" v-model="record.gender">
-                  <option value="M">Masculino</option>
-                  <option value="F">Feminino</option>
-                </select>
-
-              </div>
-            </div>
-
-            <div class="row">
-
-              <div class="col-sm-12">
-                <h4>Contatos</h4>
-                <div>
-                  <div class="form-group">
-
-
-                    <div class="row">
-
-                      <div class="col-sm-12">
-                        <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" v-model="email.value" >
-                      </div>
-
-                      <div class="col-sm-12">
-                        <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control" v-model="cellphone.value">
-                      </div>
-
-                      <div class="col-sm-12">
-                        <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control" v-model="homephone.value">
-                      </div>
-
-                      <div class="col-sm-12">
-                        <input type="text" name="comercialphone" id="comercialphone" placeholder="Telefone comercial" class="form-control" v-model="comercialphone.value">
-                      </div>
-
-                    </div>
-
-
-                  </div>
+                <div class="form-group col-sm-6">
+                  <label>Sexo</label>
+                  <select name="gender" class="form-control" v-model="record.gender">
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                  </select>
 
                 </div>
               </div>
 
-            </div>
+              <div class="row">
 
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" @click.prevent="save()">Salvar</button>
+                <div class="col-sm-12">
+                  <h4>Contatos</h4>
+                  <div>
+                    <div class="form-group">
+
+
+                      <div class="row">
+
+                        <div class="col-sm-12">
+                          <div class="row">
+
+                            <div class="col-sm-6">
+                              <label>E-Mail</label>
+                              <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" v-model="email.value" >
+                            </div>
+
+                            <div class="col-sm-6">
+                              <label>Celular</label>
+                              <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control" v-model="cellphone.value">
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <label>Fone residencial</label>
+                              <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control" v-model="homephone.value">
+                            </div>
+
+                            <div class="col-sm-6">
+                              <label>Fone comercial</label>
+                              <input type="text" name="comercialphone" id="comercialphone" placeholder="Telefone comercial" class="form-control" v-model="comercialphone.value">
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" @click.prevent="save()">Salvar</button>
+          </div>
+
         </div>
       </div>
     </div>
-  </div>
+    <!-- End of Modal -->
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 20px">
       <div class="col-sm-12">
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" @click.prevent="create()" >
           Incluir candidato
@@ -102,7 +126,7 @@
               </span>
             </h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" style="height: 120px;">
 
             <table class="table">
               <tr v-for="contact in record.contacts">

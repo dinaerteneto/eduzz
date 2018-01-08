@@ -6,7 +6,7 @@ var jQuery = require('jquery');
 window.$ = window.jQuery = jQuery;
 
 import swal from 'sweetalert';
-
+import jqueyrMaskPlugin from 'jquery-mask-plugin';
 
 import App from './App.vue'
 
@@ -22,3 +22,9 @@ new Vue({
   el: '#app',
   render: h => h(App)
 })
+
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+  $('.mask-date').mask('00/00/0000');
+});
+

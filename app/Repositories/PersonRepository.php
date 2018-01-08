@@ -51,8 +51,8 @@ class PersonRepository
      */
     public function addContact(array $data = [])
     {
-        foreach ($data as $key => $value) {
-            $contact = Contact::find($key);
+        foreach ($data as $value) {
+            $contact = Contact::find($value['id']);
             if (!$contact) {
                 $contact = new Contact();
             }

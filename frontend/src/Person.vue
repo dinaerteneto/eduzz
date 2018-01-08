@@ -24,7 +24,7 @@
 
             <div class="row">
               <div class="form-group col-sm-6">
-                <input type="text" name="date-birth" id="date-birth" class="form-control" placeholder="Data de nascimento" v-model="record.data_birth" >
+                <input type="text" name="date-birth" id="date-birth" class="form-control mask-date" placeholder="Data de nascimento" v-model="record.date_birth" >
               </div>
 
               <div class="form-group col-sm-6">
@@ -47,15 +47,19 @@
                     <div class="row">
 
                       <div class="col-sm-12">
-                        <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" value="">
+                        <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" v-model="email.value" >
                       </div>
 
                       <div class="col-sm-12">
-                        <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control">
+                        <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control" v-model="cellphone.value">
                       </div>
 
                       <div class="col-sm-12">
-                        <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control">
+                        <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control" v-model="homephone.value">
+                      </div>
+
+                      <div class="col-sm-12">
+                        <input type="text" name="comercialphone" id="comercialphone" placeholder="Telefone comercial" class="form-control" v-model="comercialphone.value">
                       </div>
 
                     </div>
@@ -72,7 +76,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-primary" @click.prevent="save()">Salvar</button>
         </div>
       </div>
     </div>
@@ -117,23 +121,48 @@
   </section>
 </template>
 <script>
+
 export default {
   data() {
     return {
       genders: [
         'Masculino', 'Feminino'
       ],
+
+      email: {type: 1, value: null},
+      cellphone: {type: 2, value: null},
+      comercialphone: {type: 3, value: null},
+      homephone: {type: 4, value: null},
+
       record: {},
       records: []
     }
   },
   methods: {
 
+    formSerialize: function() {
+      /*
+        var formData = new FormData();
+        for(var key in this.record) {
+            formData.append(key, this.record[key]);
+        }
+        console.log(this.record.serialize());
+      */
+
+      var obj = this.record;
+       obj.contact = [
+        this.email,
+        this.cellphone,
+        this.comercialphone,
+        this.homephone
+      ];
+      return obj;
+    },
+
     load: function() {
 
       this.$http.get(`person/get-all`).then(
         response => {
-          console.log(response.data.data);
           this.records = response.data.data;
         },
         error => {
@@ -142,13 +171,41 @@ export default {
       )
     },
 
+    clear: function() {
+      this.email = {id: 'a', type: 1, value: null};
+      this.cellphone = {id: 'b', type: 2, value: null};
+      this.comercialphone = {id: 'c', type: 3, value: null};
+      this.homephone = {id: 'd', type: 4, value: null};
+    },
+
     create: function() {
       this.record = {};
+      this.clear();
     },
 
     edit: function(record) {
         this.record = record;
+        this.clear();
+
+        this.email = this.getContact(record, 1);
+        this.cellphone = this.getContact(record, 2);
+        this.comercialphone = this.getContact(record, 3);
+        this.homephone = this.getContact(record, 4);
+
         $('#myModal').modal('show');
+    },
+
+    getContact: function(data, type_id) {
+      var x = [];
+      data.contacts.forEach(function(element, index) {
+        if(element.contact_type_id == type_id) {
+          x.push({id: element.id, type: element.contact_type_id, value: element.value});
+        }
+      });
+      if(x.length > 0) {
+        return x[0];
+      }
+      return {id: null, type: type_id, value: null};
     },
 
     remove: function(record) {
@@ -184,27 +241,23 @@ export default {
         if(this.record.id!= null) {
             //update
             var formData = this.formSerialize();
-            this.$http.update(`api/person/${this.record.id}`, formData, {
+            this.$http.put(`person/${this.record.id}`, formData, {
                 emulateHTTP: true
             }).then(
             (response)=>{
-                this.formErrors = response.data.error.dev;
-                if(this.formErrors === ''){
-                    $('#myModal').modal('hide');
-                    this.record = {};
-                }
+              $('#myModal').modal('hide');
+              this.record = {};
             },
             error => {
                 console.log(error);
             }).finally(function(){
                 this.load();
                 $('#myModal').modal('hide');
-
             });
         } else {
             //insert
             var formData = this.formSerialize();
-            this.$http.post(`api/person`,formData, {
+            this.$http.post(`person/create`,formData, {
                 emulateHTTP: true
             }).then(
             (response) => {
@@ -218,8 +271,8 @@ export default {
             function() {
                 this.load();
                 $('#myModal').modal('hide');
-                $.unblockUI();
             });
+
         }
     },
 
@@ -227,9 +280,6 @@ export default {
 
   created: function() {
     this.load();
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    })
   }
 
 }

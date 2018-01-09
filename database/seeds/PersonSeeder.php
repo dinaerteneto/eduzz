@@ -13,10 +13,14 @@ class PersonSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table('contact')->truncate();
+        DB::table('person')->delete();
+
         foreach(range(1,30) as $i) {
             $faker = Faker\Factory::create();
 
-            Person::create([
+            $person = Person::create([
                 'name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'date_birth' => $faker->date,
@@ -24,13 +28,14 @@ class PersonSeeder extends Seeder
             ]);
 
             foreach(range(1,3) as $a) {
-                $contactTypeId = $faker->randomElement([1,2,3]);
+                $contactTypeId = $a;
                 $value = $faker->phoneNumber;
                 if($contactTypeId == 1) {
                     $value = $faker->email;
                 }
+
                 Contact::create([
-                    'person_id' => $i,
+                    'person_id' => $person->id,
                     'contact_type_id' => $contactTypeId,
                     'value' => $value
                 ]);

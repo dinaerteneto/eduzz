@@ -47,44 +47,30 @@
                   <div>
                     <div class="form-group">
 
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label>E-Mail</label>
+                            <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" v-model="email.value" >
+                          </div>
 
-                      <div class="row">
-
-                        <div class="col-sm-12">
-                          <div class="row">
-
-                            <div class="col-sm-6">
-                              <label>E-Mail</label>
-                              <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control" v-model="email.value" >
-                            </div>
-
-                            <div class="col-sm-6">
-                              <label>Celular</label>
-                              <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control" v-model="cellphone.value">
-                            </div>
-
+                          <div class="form-group col-sm-6">
+                            <label>Celular</label>
+                            <input type="text" name="cellphone" id="cellphone" placeholder="Celular" class="form-control" v-model="cellphone.value">
                           </div>
                         </div>
 
-                      </div>
 
-                      <div class="row">
-
-                        <div class="col-sm-12">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <label>Fone residencial</label>
-                              <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control" v-model="homephone.value">
-                            </div>
-
-                            <div class="col-sm-6">
-                              <label>Fone comercial</label>
-                              <input type="text" name="comercialphone" id="comercialphone" placeholder="Telefone comercial" class="form-control" v-model="comercialphone.value">
-                            </div>
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label>Fone residencial</label>
+                            <input type="text" name="homephone" id="homephone" placeholder="Telefone residencial" class="form-control" v-model="homephone.value">
                           </div>
 
+                          <div class="form-group col-sm-6">
+                            <label>Fone comercial</label>
+                            <input type="text" name="comercialphone" id="comercialphone" placeholder="Telefone comercial" class="form-control" v-model="comercialphone.value">
+                          </div>
                         </div>
-                      </div>
 
                     </div>
 
@@ -246,9 +232,7 @@ export default {
           this.$http.delete(`person/${record.id}`).then(
           (response) => {
               this.record = {};
-              swal("Candidato excluido", {
-                icon: "success",
-              });
+              swal("Candidato excluido", {icon: "success"});
           },
           error => {
               console.log(error);
@@ -270,6 +254,7 @@ export default {
             }).then(
             (response)=>{
               $('#myModal').modal('hide');
+              swal("Candidato alterado com sucesso.", {icon: "success"});
               this.record = {};
             },
             error => {
@@ -285,10 +270,8 @@ export default {
                 emulateHTTP: true
             }).then(
             (response) => {
-                this.formErrors = response.data.error.dev;
-                if(this.formErrors === ''){
-                    $('#myModal').modal('hide');
-                }
+                $('#myModal').modal('hide');
+                swal("Candidato incluído com sucesso.", {icon: "success"});
             },
             error => {
             }).finally(
@@ -300,6 +283,12 @@ export default {
         }
     },
 
+  },
+
+  events: {
+    'record-set' (records) {
+      this.records = records;
+    }
   },
 
   created: function() {

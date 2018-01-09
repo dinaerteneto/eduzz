@@ -52,16 +52,18 @@ class PersonRepository
     public function addContact(array $data = [])
     {
         foreach ($data as $value) {
-            $contact = Contact::find($value['id']);
-            if (!$contact) {
-                $contact = new Contact();
+            if(!empty($value['value'])) {
+                $contact = Contact::find($value['id']);
+                if (!$contact) {
+                    $contact = new Contact();
+                }
+                $dataContact['person_id'] = $this->person->id;
+                $dataContact['contact_type_id'] = $value['type'];
+                unset($value['type']);
+                $dataCombine = array_merge($dataContact, $value);
+                $contact->fill($dataCombine);
+                $contact->save();
             }
-            $dataContact['person_id'] = $this->person->id;
-            $dataContact['contact_type_id'] = $value['type'];
-            unset($value['type']);
-            $dataCombine = array_merge($dataContact, $value);
-            $contact->fill($dataCombine);
-            $contact->save();
         }
         return true;
     }

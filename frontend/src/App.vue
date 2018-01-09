@@ -1,28 +1,23 @@
 <template>
-    <section>
-        <section>
+  <div class="body-content">
 
-            <div class="body-content">
+      <div class="container">
+        <top></top>
+        <person></person>
+      </div>
 
-                <div class="container">
-                  <person></person>
-                </div>
-
-                <footer>
-                    2018 © Eduzz
-                </footer>
-            </div>
-        </section>
-        <section>
-
-        </section>
-    </section>
+      <footer>
+          2018 © Eduzz
+      </footer>
+  </div>
 </template>
 <script>
+  import Header from './Header.vue';
   import Person from './Person.vue';
 
   export default {
     components: {
+      top: Header,
       person: Person
     }
 

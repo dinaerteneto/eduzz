@@ -45,8 +45,11 @@ class PersonController extends Controller
      */
     public function search(Request $request)
     {
-        Paginator::currentPageResolver(function () use ($request) {
-            return $request->page;
+        $page = null !== ($request->get('page')) ? $request->page : 0;
+        $rows = null !== ($request->get('rows')) ? $request->rows : 15;
+
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
         });
         $person = Person::with(['contacts' => function ($model) {
             return $model->with('contactType');
@@ -55,7 +58,7 @@ class PersonController extends Controller
             $person->where('name', 'like', "%{$request->name}%");
             $person->orWhere('last_name', 'like', "%{$request->name}%");
         }
-        $paginate = $person->paginate($request->rows);
+        $paginate = $person->paginate($rows);
         return response()->json($paginate);
     }
 

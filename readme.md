@@ -6,21 +6,30 @@
     - No front deve ser utilizado: Html, Css e Javascript (utilize a biblioteca e layout de sua preferência). 
     - Utilize o banco de dados MySQL para criar sua aplicação.
 
-## Tecnológias
+## Tecnológias utilizada no desenvolvimento
+    - Servidor
+      - vagrant
+      - homestead
+
     - Backend
       - PHP
       - Lumen
+        - Migrations
+        - Seeds
       - Mysql
+
     - Frontend
       - VueJs
         - VueResource
         - VueEvents
       - Jquery
       - Bootstrap
+
     - Ide
       - VsCode
+      - Sublime
 
-## Instalacao
+## Instalação
   - Após clonar o projeto, rode os comandos abaixo
     - composer install
     - php artisan migrate (para criar as tabelas)

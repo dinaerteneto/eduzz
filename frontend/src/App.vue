@@ -20,6 +20,5 @@
       top: Header,
       person: Person
     }
-
   }
 </script>

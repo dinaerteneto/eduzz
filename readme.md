@@ -35,8 +35,10 @@
     - php artisan migrate (para criar as tabelas)
     - php artisan db:seed (para popular as tabelas)
     - cd frontend
+    - npm install
     - npm run build
     - criar 3 hosts
       - eduzz.api -> apontando para ./public 
       - eduzz.doc -> apontando para ./public/apidoc
       - eduzz.dash -> apontando para ./frontend
+    - acesse no navegador eduzz.dash

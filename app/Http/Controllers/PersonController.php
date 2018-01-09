@@ -128,6 +128,7 @@ class PersonController extends Controller
     public function update(Request $request, $id)
     {
         $person = Person::find($id);
+        $person->fill($request->all());
         $repository = new PersonRepository($person);
         $repository->save();
 

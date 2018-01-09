@@ -27,7 +27,7 @@
               <div class="row">
                 <div class="form-group col-sm-6">
                   <label>Data de nascimento</label>
-                  <input type="text" name="date-birth" id="date-birth" class="form-control mask-date" placeholder="Data de nascimento" v-model="record.date_birth" >
+                  <input type="text" name="date-birth" id="date-birth" class="form-control" placeholder="dd/mm/aaaa" v-model="record.date_birth" v-mask="'99/99/9999'">
                 </div>
 
                 <div class="form-group col-sm-6">
@@ -137,7 +137,9 @@
 <script>
 
 import Vue from 'vue';
-import Pagination from 'laravel-vue-pagination'
+import Pagination from 'laravel-vue-pagination';
+const VueInputMask = require('vue-inputmask').default;
+Vue.use(VueInputMask);
 
 Vue.component('pagination', Pagination);
 
@@ -161,16 +163,14 @@ export default {
   methods: {
 
     formSerialize: function() {
-      /*
-        var formData = new FormData();
-        for(var key in this.record) {
-            formData.append(key, this.record[key]);
-        }
-        console.log(this.record.serialize());
-      */
+      let obj = this.record;
 
-      var obj = this.record;
-       obj.contact = [
+      if(obj.date_birth.length > 0) {
+        let dateBirth = obj.date_birth.split('/');
+        obj.date_birth = dateBirth[2] + '-' + dateBirth[1] + '-' + dateBirth[0]
+      }
+
+      obj.contact = [
         this.email,
         this.cellphone,
         this.comercialphone,
@@ -216,6 +216,14 @@ export default {
         this.cellphone = this.getContact(record, 2);
         this.comercialphone = this.getContact(record, 3);
         this.homephone = this.getContact(record, 4);
+
+        if(this.record.date_birth.indexOf('/') == -1) {
+          let dateBirth = this.record.date_birth.length > 0 ? this.record.date_birth.split('-') : null;
+
+          if(dateBirth.length > 0) {
+            this.record.date_birth = dateBirth[2] +'/' + dateBirth[1] + '/' + dateBirth[0];
+          }
+        }
 
         $('#myModal').modal('show');
     },
@@ -263,7 +271,7 @@ export default {
 
         if(this.record.id!= null) {
             //update
-            var formData = this.formSerialize();
+            let formData = this.formSerialize();
             this.$http.put(`person/${this.record.id}`, formData, {
                 emulateHTTP: true
             }).then(
@@ -280,7 +288,7 @@ export default {
             });
         } else {
             //insert
-            var formData = this.formSerialize();
+            let formData = this.formSerialize();
             this.$http.post(`person/create`,formData, {
                 emulateHTTP: true
             }).then(

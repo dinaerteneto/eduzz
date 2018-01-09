@@ -11,15 +11,17 @@ class ContactTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('contact_type')->insert(
-            [
-                ['name' => 'E-Mail'],
-                ['name' => 'Telefone Celular'],
-                ['name' => 'Telefone Comercial'],
-                ['name' => 'Telefone Residencial'],
-                ['name' => 'Telefone Recados'],
-            ]
-        );
+        if(!DB::table('contact_type')->where('id', 1)->first()) {
 
+            DB::table('contact_type')->insert(
+                [
+                    ['name' => 'E-Mail'],
+                    ['name' => 'Telefone Celular'],
+                    ['name' => 'Telefone Comercial'],
+                    ['name' => 'Telefone Residencial'],
+                    ['name' => 'Telefone Recados'],
+                ]
+            );
+        }
     }
 }

@@ -127,10 +127,19 @@
       </div>
     </div>
 
+    <div class="row">
+        <pagination :data="data" v-on:pagination-change-page="load"></pagination>
+    </div>
+
 
   </section>
 </template>
 <script>
+
+import Vue from 'vue';
+import Pagination from 'laravel-vue-pagination'
+
+Vue.component('pagination', Pagination);
 
 export default {
   data() {
@@ -145,7 +154,8 @@ export default {
       homephone: {type: 4, value: null},
 
       record: {},
-      records: []
+      records: [],
+      data: []
     }
   },
   methods: {
@@ -169,11 +179,16 @@ export default {
       return obj;
     },
 
-    load: function() {
+    load: function(page) {
 
-      this.$http.get(`person/get-all`).then(
+      if (typeof page === 'undefined') {
+        page = 1;
+      }
+
+      this.$http.get(`person/get-all?page=` + page).then(
         response => {
           this.records = response.data.data;
+          this.data = response.data;
         },
         error => {
           console.log(error)

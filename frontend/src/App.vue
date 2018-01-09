@@ -7,7 +7,7 @@
       </div>
 
       <footer>
-          2018 © Eduzz
+          <div class="pull-right">2018 © Eduzz - By Dinaerte Neto (dinaerteneto@gmail.com)</div>
       </footer>
   </div>
 </template>

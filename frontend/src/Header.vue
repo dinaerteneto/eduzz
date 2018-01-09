@@ -16,7 +16,7 @@
                     <div class="input-group">
                       <input type="text" class="form-control" placeholder="Pesquisar por nome..." v-model="searchTerm" v-on:keyup.enter="search">
                       <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
+                        <button class="btn btn-default" type="button" @click="search">
                           <i class="fa fa-search"></i>
                         </button>
                       </span>
